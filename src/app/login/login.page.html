@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Login </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="credentials" (ngSubmit)="login()">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div
+      class="validation-error"
+      *ngIf="(credentials.controls['email'].dirty || credentials.controls['email'].touched) && credentials.controls['email'].errors"
+    >
+      <span *ngIf="credentials.controls['email'].getError('required')"
+        >Emailadres is vereist.</span
+      >
+      <span *ngIf="credentials.controls['email'].getError('email')"
+        >Invalide emailadres.</span
+      >
+    </div>
+    <ion-item>
+      <ion-label position="floating">Wachtwoord</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div
+      class="validation-error"
+      *ngIf="(credentials.controls['password'].dirty || credentials.controls['password'].touched) && credentials.controls['password'].errors"
+    >
+      <span *ngIf="credentials.controls['password'].getError('required')"
+        >Wachtwoord is vereist.</span
+      >
+    </div>
+    <div class="validation-error" *ngIf="error">
+      <span>{{error}}</span>
+    </div>
+
+    <ion-button type="submit">Login</ion-button>
+    <ion-button routerLink="/register" type="button">Registreer</ion-button>
+    <ion-button routerLink="/reset-password" type="button">Wachtwoord vergeten</ion-button>
+  </form>
+</ion-content>

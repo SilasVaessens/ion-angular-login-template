@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registratie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="credentials" (ngSubmit)="register()">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div
+      class="validation-error"
+      *ngIf="(credentials.controls['email'].dirty || credentials.controls['email'].touched) && credentials.controls['email'].errors"
+    >
+      <span *ngIf="credentials.controls['email'].getError('required')"
+        >Emailadres is vereist.</span
+      >
+      <span *ngIf="credentials.controls['email'].getError('email')"
+        >Invalide emailadres.</span
+      >
+      <span *ngIf="credentials.controls['email'].getError('used')"
+      >Gebruik een ander emailadres, deze wordt al gebruikt.</span
+    >
+
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Wachtwoord</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div
+      class="validation-error"
+      *ngIf="(credentials.controls['password'].dirty || credentials.controls['password'].touched) && credentials.controls['password'].errors"
+    >
+      <span *ngIf="credentials.controls['password'].getError('required')"
+        >Wachtwoord is vereist.</span
+      >
+      <span *ngIf="credentials.controls['password'].getError('minlength')"
+        >Wachtwoord moet minstens 6 karakters lang zijn.</span
+      >
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Bevestig wachtwoord</ion-label>
+      <ion-input type="password" formControlName="repeat"></ion-input>
+    </ion-item>
+    <div
+      class="validation-error"
+      *ngIf="(credentials.controls['repeat'].dirty || credentials.controls['repeat'].touched) && credentials.controls['repeat'].errors"
+    >
+      <span *ngIf="credentials.controls['repeat'].getError('required')"
+        >Wachtwoord is vereist.</span
+      >
+      <span *ngIf="credentials.controls['repeat'].getError('minlength')"
+        >Wachtwoord moet minstens 6 karakters lang zijn.</span
+      >
+    </div>
+    <div
+      class="validation-error"
+      *ngIf="((credentials.controls['repeat'].dirty || credentials.controls['repeat'].touched) &&
+       (credentials.controls['password'].dirty || credentials.controls['password'].touched)) &&
+       credentials.getError('NoMatch')"
+    >
+      <span>Wachtwoorden komen niet overeen</span>
+    </div>
+    <div class="validation-error" *ngIf="error">
+      <span>{{error}}</span>
+    </div>
+    <ion-button type="submit">Registreer</ion-button>
+    <ion-button routerLink="/login" type="button">Login</ion-button>
+  </form>
+</ion-content>
